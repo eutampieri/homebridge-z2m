@@ -15,15 +15,12 @@ The following HomeKit Services and Characteristics are exposed by
 the Xiaomi SJCGQ11LM
 
 * [Battery](../../battery.md)
-  * BatteryLevel
-  * ChargingState
-  * StatusLowBattery
-* [LeakSensor](../../sensors.md)
-  * LeakDetected
-  * StatusLowBattery
-* [TemperatureSensor](../../sensors.md)
-  * CurrentTemperature
-  * StatusLowBattery
+  * Battery Level
+  * Charging State
+  * Status Low Battery
+* [Leak Sensor](../../sensors.md)
+  * Leak Detected
+  * Status Low Battery
 
 
 # Related

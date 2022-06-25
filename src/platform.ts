@@ -14,7 +14,6 @@ import {
 } from './z2mModels';
 import * as semver from 'semver';
 import { errorToString } from './helpers';
-import { EXP_GROUPS } from './experimental';
 import { BasicPlatform } from './converters/interfaces';
 
 export class Zigbee2mqttPlatform implements DynamicPlatformPlugin, BasicPlatform {
@@ -46,7 +45,6 @@ export class Zigbee2mqttPlatform implements DynamicPlatformPlugin, BasicPlatform
 
     // Set device defaults
     this.baseDeviceConfig = {
-      excluded: false,
     };
 
     // Validate configuration
@@ -71,6 +69,11 @@ export class Zigbee2mqttPlatform implements DynamicPlatformPlugin, BasicPlatform
       // Merge defaults from the plugin configuration
       if (this.config.defaults !== undefined) {
         this.baseDeviceConfig = { ...this.baseDeviceConfig, ...this.config.defaults };
+      }
+      if (this.baseDeviceConfig.exclude === false) {
+        // Set to undefined; as this is already the default behavior and might conflict with exclude_grouped_devices otherwise.
+        this.log.debug('Changing default value for exclude from false to undefined.');
+        this.baseDeviceConfig.exclude = undefined;
       }
       this.log.debug(`Default device config: ${JSON.stringify(this.baseDeviceConfig)}`);
 
@@ -201,7 +204,7 @@ export class Zigbee2mqttPlatform implements DynamicPlatformPlugin, BasicPlatform
           // Update accessories
           this.lastReceivedDevices = JSON.parse(payload.toString());
 
-          if (this.isExperimentalFeatureEnabled(EXP_GROUPS) && this.config?.exclude_grouped_devices === true) {
+          if (this.config?.exclude_grouped_devices === true) {
             if (this.lastReceivedGroups.length === 0) {
               this.deviceUpdatePending = true;
             } else {
@@ -368,7 +371,7 @@ export class Zigbee2mqttPlatform implements DynamicPlatformPlugin, BasicPlatform
 
   private isDeviceExcluded(device: DeviceListEntry | string): boolean {
     const additionalConfig = this.getAdditionalConfigForDevice(device);
-    if (additionalConfig?.exclude) {
+    if (additionalConfig?.exclude === true) {
       this.log.debug(`Device is excluded: ${additionalConfig.id}`);
       return true;
     }
@@ -377,14 +380,12 @@ export class Zigbee2mqttPlatform implements DynamicPlatformPlugin, BasicPlatform
       return false;
     }
 
-    if (this.isExperimentalFeatureEnabled(EXP_GROUPS)) {
-      if (this.config?.exclude_grouped_devices === true && this.lastReceivedGroups !== undefined) {
-        const id = typeof device === 'string' ? device : device.ieee_address;
-        for (const group of this.lastReceivedGroups) {
-          if (group.members.findIndex(m => m.ieee_address === id) >= 0) {
-            this.log.debug(`Device (${id}) is excluded because it is in a group: ${group.friendly_name} (${group.id})`);
-            return true;
-          }
+    if (this.config?.exclude_grouped_devices === true && this.lastReceivedGroups !== undefined) {
+      const id = typeof device === 'string' ? device : device.ieee_address;
+      for (const group of this.lastReceivedGroups) {
+        if (group.members.findIndex(m => m.ieee_address === id) >= 0) {
+          this.log.debug(`Device (${id}) is excluded because it is in a group: ${group.friendly_name} (${group.id})`);
+          return true;
         }
       }
     }
@@ -464,12 +465,10 @@ export class Zigbee2mqttPlatform implements DynamicPlatformPlugin, BasicPlatform
 
   private createGroupAccessories(groups: GroupListEntry[]) {
     this.log.debug('Received groups...');
-    if (this.isExperimentalFeatureEnabled(EXP_GROUPS)) {
-      for (const group of groups) {
-        const device = this.createDeviceListEntryFromGroup(group);
-        if (device !== undefined) {
-          this.createOrUpdateAccessory(device);
-        }
+    for (const group of groups) {
+      const device = this.createDeviceListEntryFromGroup(group);
+      if (device !== undefined) {
+        this.createOrUpdateAccessory(device);
       }
     }
   }

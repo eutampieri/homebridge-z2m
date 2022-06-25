@@ -15,9 +15,9 @@ The following HomeKit Services and Characteristics are exposed by
 the ShinaSystem CSM-300ZB
 
 * [Battery](../../battery.md)
-  * BatteryLevel
-  * ChargingState
-  * StatusLowBattery
+  * Battery Level
+  * Charging State
+  * Status Low Battery
 
 
 
@@ -42,6 +42,18 @@ the ShinaSystem CSM-300ZB
     "access": 1,
     "unit": "mV",
     "description": "Voltage of the battery in millivolts"
+  },
+  {
+    "type": "enum",
+    "name": "status",
+    "property": "status",
+    "access": 1,
+    "values": [
+      "idle",
+      "in",
+      "out"
+    ],
+    "description": "Currently status"
   },
   {
     "type": "numeric",

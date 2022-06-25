@@ -15,12 +15,11 @@ The following HomeKit Services and Characteristics are exposed by
 the TuYa TS0601_smoke
 
 * [Battery](../../battery.md)
-  * BatteryLevel
-  * ChargingState
-  * StatusLowBattery
-* [SmokeSensor](../../sensors.md)
-  * SmokeDetected
-  * StatusLowBattery
+  * Battery Level
+  * Charging State
+  * Status Low Battery
+* [Smoke Sensor](../../sensors.md)
+  * Smoke Detected
 
 
 # Related

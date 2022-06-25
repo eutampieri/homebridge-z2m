@@ -15,12 +15,15 @@ The following HomeKit Services and Characteristics are exposed by
 the Danalock V3-BTZB/V3-BTZBE
 
 * [Battery](../../battery.md)
-  * BatteryLevel
-  * ChargingState
-  * StatusLowBattery
-* [LockMechanism](../../lock.md)
-  * LockCurrentState
-  * LockTargetState
+  * Battery Level
+  * Charging State
+  * Status Low Battery
+* [Lock Mechanism](../../lock.md)
+  * Lock Current State
+  * Lock Target State
+* [Stateless Programmable Switch](../../action.md)
+  * Programmable Switch Event
+  * Service Label Index
 
 
 # Related

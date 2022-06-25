@@ -15,13 +15,11 @@ The following HomeKit Services and Characteristics are exposed by
 the Xiaomi MCCGQ11LM
 
 * [Battery](../../battery.md)
-  * BatteryLevel
-  * ChargingState
-  * StatusLowBattery
-* [ContactSensor](../../sensors.md)
-  * ContactSensorState
-* [TemperatureSensor](../../sensors.md)
-  * CurrentTemperature
+  * Battery Level
+  * Charging State
+  * Status Low Battery
+* [Contact Sensor](../../sensors.md)
+  * Contact Sensor State
 
 
 # Related

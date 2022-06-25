@@ -6,6 +6,27 @@ Since version 1.0.0, we try to follow the [Semantic Versioning](https://semver.o
 
 ## [Unreleased]
 
+## [1.8.0] - 2022-05-09
+
+### Added
+
+- It is now possible to include globally excluded properties for specific devices by using `included_keys` in the device configuration. (see [#406](https://github.com/itavero/homebridge-z2m/issues/406))
+
+### Changed
+
+- Support for Zigbee2MQTT Groups is now enabled by default. The experimental option `GROUPS` is therefore removed. (see [#277](https://github.com/itavero/homebridge-z2m/issues/277))
+
+### Notes
+
+- When using **Homebridge v1.4.0** or newer, it is currently recommended to [turn off state caching](https://www.zigbee2mqtt.io/guide/configuration/mqtt.html#mqtt-behaviour) in Zigbee2MQTT (put `cache_state: false` in the configuration). See [issue #383](https://github.com/itavero/homebridge-z2m/issues/383) for more information.
+
+## [1.7.0] - 2022-02-20
+
+### Changed
+
+- Ignore `exclude: false` if it is part of the `defaults` in the plugin configuration, as it may conflict with
+  `exclude_grouped_devices` (also see [#277](https://github.com/itavero/homebridge-z2m/issues/277#issuecomment-1042590683))
+
 ### Fixed
 
 - Remove stale accessories when an updated group list is received.
@@ -292,7 +313,9 @@ For `cover` devices the following changes/fixes are in this release:
 - Improve state determination for WindowCovering.
 
 
-[Unreleased]: https://github.com/itavero/homebridge-z2m/compare/v1.7.0-rc.1...HEAD
+[unreleased]: https://github.com/itavero/homebridge-z2m/compare/v1.8.0...HEAD
+[1.8.0]: https://github.com/itavero/homebridge-z2m/compare/v1.7.0...v1.8.0
+[1.7.0]: https://github.com/itavero/homebridge-z2m/compare/v1.7.0-rc.1...v1.7.0
 [1.7.0-rc.1]: https://github.com/itavero/homebridge-z2m/compare/v1.6.2...v1.7.0-rc.1
 [1.6.2]: https://github.com/itavero/homebridge-z2m/compare/v1.6.1...v1.6.2
 [1.6.1]: https://github.com/itavero/homebridge-z2m/compare/v1.6.0...v1.6.1

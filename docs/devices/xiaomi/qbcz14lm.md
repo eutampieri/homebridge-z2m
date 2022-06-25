@@ -16,8 +16,6 @@ the Xiaomi QBCZ14LM
 
 * [Switch](../../switch.md)
   * On
-* [TemperatureSensor](../../sensors.md)
-  * CurrentTemperature
 
 
 # Related

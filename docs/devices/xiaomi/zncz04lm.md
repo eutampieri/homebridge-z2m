@@ -16,8 +16,6 @@ the Xiaomi ZNCZ04LM
 
 * [Switch](../../switch.md)
   * On
-* [TemperatureSensor](../../sensors.md)
-  * CurrentTemperature
 
 
 # Related
